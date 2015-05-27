@@ -45,7 +45,7 @@ class PerfRecord(models.Model):
     peak_host_mem = models.FloatField(help_text="Peak Host Memory, in GB")
     overall_runtime = models.IntegerField(help_text="Overall Running Time, in seconds")
     highest_cmd_mem = models.FloatField(help_text="Highest Command Memory, in MB")
-    peak_disk = models.FloatField(help_text="Peak Disk Usage, in Mb")
+    peak_disk = models.FloatField(help_text="Peak Disk Usage, in MB")
 
     def _collect_data(self):
         pass

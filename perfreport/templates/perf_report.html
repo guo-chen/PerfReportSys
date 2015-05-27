@@ -22,13 +22,38 @@
                 </h4>
             </div>
             <div id="{{ record.rel_ver.name|cut:"." }}" class="panel-collapse collapse">
-            <ul class="list-group">
-                <li class="list-group-item">Total memory consumption: {{ record.total_mem_consumption }}</li>
-                <li class="list-group-item">Highest command memory: {{ record.highest_cmd_mem }}</li>
-                <li class="list-group-item">Overall running time: {{ record.overall_runtime }}</li>
-                <li class="list-group-item">Peak host memory: {{ record.peak_host_mem }}</li>
-                <li class="list-group-item">Peak disk usage: {{ record.peak_disk }}</li>
-            </ul>
+                 <table class="table table-bordered table-hover">
+                    <tr>
+                        <th>Merit</th>
+                        <th>Value</th>
+                        <th>Unit</th>
+                    </tr>
+                    <tr>
+                        <td>Total memory consumption</td>
+                        <td>{{ record.total_mem_consumption }}</td>
+                        <td>GB*hours</td>
+                    </tr>
+                    <tr>
+                        <td>Highest command memory</td>
+                        <td>{{ record.highest_cmd_mem }}</td>
+                        <td>GB</td>
+                    </tr>
+                    <tr>
+                        <td>Overall running time</td>
+                        <td>{{ record.overall_runtime }}</td>
+                        <td>Seconds</td>
+                    </tr>
+                    <tr>
+                        <td>Peak host memory</td>
+                        <td>{{ record.peak_host_mem }}</td>
+                        <td>MB</td>
+                    </tr>
+                    <tr>
+                        <td>Peak disk usage</td>
+                        <td>{{ record.peak_disk }}</td>
+                        <td>MB</td>
+                    </tr>
+                </table>
             </div>
         </div>
     {% endfor %}
