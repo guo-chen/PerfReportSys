@@ -1,0 +1,60 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <link href="{% static 'semantic/semantic.min.css' %}" rel="stylesheet">
+    <title>Performance Report - {{ case.name }}</title>
+</head>
+<body>
+    <h2 class="ui header">{{ case.name }}</h2>
+    <div class="ui styled fluid accordion">
+        {% for record in run_results %}
+        <div class="title">
+            <i class="dropdown icon"></i>{{ record.rel_ver.name }}
+        </div>
+        <div class="content">
+            <table class="ui table">
+                <thead>
+                    <tr>
+                        <th>Merit</th>
+                        <th>Value</th>
+                        <th>Unit</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Total memory consumption</td>
+                        <td>{{ record.total_mem_consumption }}</td>
+                        <td>GB*hours</td>
+                    </tr>
+                    <tr>
+                        <td>Highest command memory</td>
+                        <td>{{ record.highest_cmd_mem }}</td>
+                        <td>GB</td>
+                    </tr>
+                    <tr>
+                        <td>Overall running time</td>
+                        <td>{{ record.overall_runtime }}</td>
+                        <td>Seconds</td>
+                    </tr>
+                    <tr>
+                        <td>Peak host memory</td>
+                        <td>{{ record.peak_host_mem }}</td>
+                        <td>MB</td>
+                    </tr>
+                    <tr>
+                        <td>Peak disk usage</td>
+                        <td>{{ record.peak_disk }}</td>
+                        <td>MB</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        {% endfor %}
+    </div>
+    <script src="{% static 'bootstrap/js/../../static/js_common/jquery.min.js' %}"></script>
+    <script src="{% static 'semantic/semantic.min.js' %}"></script>
+    <script type="text/javascript">$('.ui.accordion').accordion({'exclusive':false});</script>
+</body>
+</html>

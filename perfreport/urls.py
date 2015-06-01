@@ -5,6 +5,6 @@ from . import views
 
 urlpatterns = patterns(
     '',
-    #url(r'^$', views.CaseView.as_view(), name="case_results"),
-    url(r'^(?P<case_name>[\w\.]+)$', views.CaseView.as_view(), name="case_results"),
+    # url(r'^$', views.CaseView.as_view(), name="case_results"),
+    url(r'^cases/(?P<case_name>[\w\.]+)$', views.CaseView.as_view(), name="case_results"),
 )
