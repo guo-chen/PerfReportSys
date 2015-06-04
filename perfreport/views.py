@@ -5,14 +5,14 @@ from django.template import RequestContext
 from .models import PerfCase, PerfRecord
 import json
 
-
 unit = {
-        "Total Memory Consumption": "GB*Hours",
-        "Peak Host Memory": "GB",
-        "Overall Runtime": "Seconds",
-        "Highest Command Memory": "MB",
-        "Peak Disk": "MB"
-    }
+    "Total Memory Consumption": "GB*Hours",
+    "Peak Host Memory": "GB",
+    "Overall Runtime": "Seconds",
+    "Highest Command Memory": "MB",
+    "Peak Disk": "MB"
+}
+
 
 # Create your views here.
 class CaseView_old(TemplateView):
@@ -91,11 +91,12 @@ class CaseView(TemplateView):
         for run_mode in case.run_modes.all():
             run_results = PerfRecord.objects.filter(case__name=case.name, run_mode__name=run_mode)
             summary = {
-            "Total Memory Consumption": {record.rel_ver.name: record.total_mem_consumption for record in run_results},
-            "Peak Host Memory": {record.rel_ver.name: record.peak_host_mem for record in run_results},
-            "Overall Runtime": {record.rel_ver.name: record.overall_runtime for record in run_results},
-            "Highest Command Memory": {record.rel_ver.name: record.highest_cmd_mem for record in run_results},
-            "Peak Disk": {record.rel_ver.name: record.peak_disk for record in run_results}
+                "Total Memory Consumption": {record.rel_ver.name: record.total_mem_consumption for record in
+                                             run_results},
+                "Peak Host Memory": {record.rel_ver.name: record.peak_host_mem for record in run_results},
+                "Overall Runtime": {record.rel_ver.name: record.overall_runtime for record in run_results},
+                "Highest Command Memory": {record.rel_ver.name: record.highest_cmd_mem for record in run_results},
+                "Peak Disk": {record.rel_ver.name: record.peak_disk for record in run_results}
             }
             json_data = {}
             for merit in summary:
@@ -121,7 +122,6 @@ class CaseView(TemplateView):
                 }
                 json_data[merit] = json.dumps(data)
             run_results_by_mode[run_mode] = json_data
-
 
         context = self.get_context_data()
         context['case'] = case
