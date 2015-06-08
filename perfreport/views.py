@@ -128,3 +128,16 @@ class CaseView(TemplateView):
         context['run_results_by_mode'] = run_results_by_mode
 
         return render_to_response(self.template_name, context, context_instance=RequestContext(request))
+
+
+class HomeView(TemplateView):
+    template_name = "index.html"
+
+    def get_context_data(self, **kwargs):
+        context = super(HomeView, self).get_context_data(**kwargs)
+        return context
+
+    def get(self, request, *args, **kwargs):
+        context = self.get_context_data()
+
+        return render_to_response(self.template_name, context, context_instance=RequestContext(request))

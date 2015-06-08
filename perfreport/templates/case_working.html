@@ -1,0 +1,78 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>{{ case.site.name }} - {{ case.suite.name }} - {{ case.name }}</title>
+    <link href="{% static 'semantic/semantic.css' %}" rel="stylesheet">
+    <script src="{% static 'js_common/jquery.min.js' %}"></script>
+    {% for run_mode, merit_dict in run_results_by_mode.items %}
+        {% for merit, json_data in merit_dict.items %}
+            <script type="text/javascript">
+            $(function () {
+            $('#{{ run_mode }}_{{ merit|cut:' ' }}').highcharts({{ json_data|safe }});
+            });
+            </script>
+        {% endfor %}
+    {% endfor %}
+</head>
+<body>
+
+    <h2 class="ui header">{{ case.name }}</h2>
+
+    <div class="ui styled fluid accordion">
+        <div class="active title">
+           <i class="dropdown icon"></i>Case Profile
+        </div>
+        <div class="active content">
+            Profile
+        </div>
+    </div>
+
+    <div class="ui pointing perf_summary menu">
+        {% for run_mode, merit_dict in run_results_by_mode.items %}
+            <a class={% if forloop.first %}"active item"{% else %}"item"{% endif %} data-tab="{{ run_mode }}">
+                {{ run_mode }}
+            </a>
+        {% endfor %}
+    </div>
+    {% for run_mode, merit_dict in run_results_by_mode.items %}
+    {% if forloop.first %}
+    <div class="ui active tab segment" data-tab="{{ run_mode }}">
+    {% else %}
+    <div class="ui tab segment" data-tab="{{ run_mode }}">
+    {% endif %}
+         <div class="ui styled fluid accordion">
+             <div class="active title">
+                <i class="dropdown icon"></i>Performance Details
+             </div>
+             <div class="active content">
+                 <div class="accordion">
+                {% for merit, json_data in merit_dict.items %}
+                    {% if forloop.first %}
+                    <div class="active title">
+                    {% else %}
+                    <div class="title">
+                    {% endif %}
+                        <i class="dropdown icon"></i>{{ merit }}
+                    </div>
+                    {% if forloop.first %}
+                    <div class="active content">
+                    {% else %}
+                    <div class="content">
+                    {% endif %}
+                        <div id="{{ run_mode }}_{{ merit|cut:' ' }}" style="width:100%; height:400px;"></div>
+                    </div>
+                {% endfor %}
+                </div>
+             </div>
+         </div>
+    </div>
+    {% endfor %}
+
+    <script src="{% static 'highcharts/js/highcharts.js' %}"></script>
+    <script src="{% static 'semantic/semantic.min.js'%}"></script>
+    <script type="text/javascript">$('.ui.accordion').accordion({'exclusive':false});</script>
+    <script type="text/javascript">$(document).ready(function(){$('.perf_summary.menu .item').tab({history:false});})</script>
+</body>
+</html>

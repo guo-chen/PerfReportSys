@@ -1,12 +1,13 @@
-{% extends 'base.html' %}
 {% load staticfiles %}
-
-{% block title %}
-    | {{ case.site.name }} - {{ case.suite.name }} - {{ case.name }}
-{% endblock %}
-
-{% block head_scripts %}
-     {% for run_mode, merit_dict in run_results_by_mode.items %}
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>{{ case.site.name }} - {{ case.suite.name }} - {{ case.name }}</title>
+    <link href="{% static 'semantic/semantic.css' %}" rel="stylesheet">
+    <link href="{% static 'css_common/perfreport.css' %}" rel="stylesheet">
+    <script src="{% static 'js_common/jquery.min.js' %}"></script>
+    {% for run_mode, merit_dict in run_results_by_mode.items %}
         {% for merit, json_data in merit_dict.items %}
             <script type="text/javascript">
             $(function () {
@@ -15,27 +16,19 @@
             </script>
         {% endfor %}
     {% endfor %}
-{% endblock %}
+</head>
+<body>
 
-{% block nav %}
-    <i class="right chevron icon divider"></i>
-    <a class="section">Sites</a>
-    <i class="right chevron icon divider"></i>
-    <div class="active section">Cases</div>
-{% endblock %}
-
-{% block body_content %}
-    <h2 class="ui dividing header">{{ case.name }}</h2>
+    <h2 class="ui header">{{ case.name }}</h2>
 
     <div class="ui two column grid">
 
+
     <div class="column">
-        <h4 class="ui horizontal header divider"><i class="file text outline icon"></i>Profile</h4>
+        Profile
     </div>
 
     <div class="column">
-        <h4 class="ui horizontal header divider"><i class="bar chart icon"></i>Performance</h4>
-
         <div class="ui pointing perf_summary menu">
             {% for run_mode, merit_dict in run_results_by_mode.items %}
                 <a class="{% if forloop.first %}active {% endif %}item" data-tab="{{ run_mode }}">
@@ -61,11 +54,9 @@
     </div>
 
     </div>
-{% endblock %}
-
-{% block body_script %}
     <script src="{% static 'highcharts/js/highcharts.js' %}"></script>
     <script src="{% static 'semantic/semantic.min.js'%}"></script>
-    <script type="text/javascript">$('.ui.accordion').accordion({'exclusive':false});</script>
+    <script type="text/javascript">$('.ui.accordion').accordion({'exclusive':false, 'animateChildren':true});</script>
     <script type="text/javascript">$(document).ready(function(){$('.perf_summary.menu .item').tab({history:false});})</script>
-{% endblock %}
+</body>
+</html>

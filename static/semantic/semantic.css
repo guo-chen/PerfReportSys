@@ -23134,7 +23134,16 @@ a.ui.card:hover,
 
 .ui.styled.accordion .accordion .content {
   padding: 0em;
+  /* hacked by George -begin-
   padding: 0.5em 1em 1.5em;
+     hacked by George -end-*/
+  padding: 0em 1em 0em;
+
+  /* hacked by George -begin-*/
+  display: block;
+  height: 0;
+  overflow-y: hidden;
+  /* hacked by George -end-*/
 }
 
 /* Hover */
@@ -23176,6 +23185,9 @@ a.ui.card:hover,
 .ui.accordion .active.content,
 .ui.accordion .accordion .active.content {
   display: block;
+  /* Hacked by George -begin-*/
+  height: auto;
+  /* Hacked by George -end-*/
 }
 
 /*******************************

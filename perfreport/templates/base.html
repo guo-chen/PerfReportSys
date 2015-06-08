@@ -1,0 +1,44 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>ICV PRS {% block title%}{% endblock %}</title>
+    <link href="{% static 'css_common/perfreport.css' %}" rel="stylesheet">
+    <link href="{% static 'semantic/semantic.min.css' %}" rel="stylesheet">
+    <script src="{% static 'js_common/jquery.min.js' %}"></script>
+    {% block head_scripts %}
+    {% endblock %}
+</head>
+<body>
+    <header class="container-header">
+        <h1 class="ui white header"><i class="bar chart icon"></i>IC Validator Performance Report System</h1>
+    </header>
+    <div class="ui segment">
+        <div class="ui two column grid">
+            <div class="ui column">
+                <div class="ui large breadcrumb">
+                    <a class="section">Home</a>
+                    {% block nav %}
+                    {% endblock %}
+                </div>
+            </div>
+            <div class="ui column">
+            </div>
+        </div>
+    </div>
+
+    <div class="container-content">
+        {% block body_content %}
+        {% endblock %}
+    </div>
+
+    <footer class="container-footer">
+        <img class="ui tiny centered image" src="{% static 'images/SynopsysLogo_STS-RBG.png' %}">
+        <p>Copyright &copy; Synopsys</p>
+    </footer>
+
+    {% block body_script %}
+    {% endblock %}
+</body>
+</html>
