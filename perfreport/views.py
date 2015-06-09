@@ -2,6 +2,7 @@ from django.shortcuts import render_to_response
 from django.shortcuts import get_object_or_404
 from django.views.generic.base import TemplateView
 from django.template import RequestContext
+from django.forms.models import model_to_dict
 from .models import PerfCase, PerfRecord
 import json
 
@@ -123,8 +124,10 @@ class CaseView(TemplateView):
                 json_data[merit] = json.dumps(data)
             run_results_by_mode[run_mode] = json_data
 
+        case_info = [(" ".join(field.name.split('_')), field.value_to_string(case)) for field in case._meta.fields]
         context = self.get_context_data()
         context['case'] = case
+        context['case_info'] = case_info[4:]
         context['run_results_by_mode'] = run_results_by_mode
 
         return render_to_response(self.template_name, context, context_instance=RequestContext(request))

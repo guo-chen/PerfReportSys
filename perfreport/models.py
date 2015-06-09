@@ -57,10 +57,29 @@ class RunMode(models.Model):
 
 
 class PerfCase(models.Model):
+    LIBRARY_CHOICES = (
+        ('GDSII', 'gds'),
+        ('OASIS', 'oas'),
+        ('OPENACCESS', 'oa'),
+        ('MILKYWAY', 'mw'),
+    )
     name = models.CharField(max_length=128, help_text="The name of the case, 128 characters allowed")
     suite = models.ForeignKey(Suite)
     site = models.ForeignKey(Site)
     run_modes = models.ManyToManyField(RunMode, blank=True)
+    owner = models.CharField(max_length=64, default="", help_text="Name of the case owner who added this case")
+    owner_email = models.EmailField(blank=True, help_text="Email of the owner")
+    case_location = models.CharField(max_length=256, default="", help_text="Location of the case")
+    result_location = models.CharField(max_length=256, default="", help_text="Location of run results of the case")
+    input_library_name = models.CharField(max_length=256, default="", help_text="Input library name")
+    input_library_type = models.CharField(max_length=16, choices=LIBRARY_CHOICES, default="", help_text="Input library type")
+    input_library_size = models.CharField(max_length=256, default="", help_text="Input library size")
+    top_cell_name = models.CharField(max_length=256, default="", help_text="Top cell name")
+    number_of_commands = models.IntegerField(default=0, help_text="Total number of commands")
+    number_of_commands_with_errors = models.IntegerField(default=0, help_text="The number of commands with errors")
+    total_errors = models.IntegerField(default=0, help_text="Total number of errors (may vary between different flows, default is DRC flow")
+    DBU = models.FloatField(default=0.0, help_text="DBU used for the database resolution")
+    number_of_unique_cells_with_errors = models.IntegerField(default=0, help_text="Total number of unique cells with errors")
 
     class Meta:
         unique_together = ('name', 'suite', 'site',)

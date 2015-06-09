@@ -38,8 +38,7 @@
 }
 
 .chart-drawing-area {
-    margin: 1em auto;
+    margin: auto;
     width: 500px;
     height: 300px;
-    
 }

@@ -31,6 +31,35 @@
 
     <div class="column">
         <h4 class="ui horizontal header divider"><i class="file text outline icon"></i>Profile</h4>
+        <table class="ui celled table">
+            <thead>
+            <tr>
+                <th>Item</th>
+                <th>Information</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for field, value in case_info %}
+                <tr>
+                    <td>
+                        {% if "DBU" in field %}
+                        {{ field }}
+                        {% else %}
+                        {{ field|capfirst }}
+                        {% endif %}
+                    </td>
+                    <td>
+                        {% if "@" in value %}
+                            <a href="mailto:{{ value }}">{{ value }}</a>
+                        {% else %}
+                            {{ value|default:"N/A" }}
+                        {% endif %}
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+
     </div>
 
     <div class="column">
