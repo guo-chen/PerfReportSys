@@ -3,7 +3,7 @@ from django.shortcuts import get_object_or_404
 from django.views.generic.base import TemplateView
 from django.template import RequestContext
 from django.forms.models import model_to_dict
-from .models import PerfCase, PerfRecord
+from .models import PerfCase, PerfRecord, Site, Suite
 import json
 
 unit = {
@@ -134,7 +134,7 @@ class CaseView(TemplateView):
 
 
 class HomeView(TemplateView):
-    template_name = "index.html"
+    template_name = "home.html"
 
     def get_context_data(self, **kwargs):
         context = super(HomeView, self).get_context_data(**kwargs)
@@ -142,5 +142,17 @@ class HomeView(TemplateView):
 
     def get(self, request, *args, **kwargs):
         context = self.get_context_data()
+        # cases = PerfCase.objects.all()
+        sites = Site.objects.all()
+        suites = Suite.objects.all()
+        case_dict = {}
+        for site in sites:
+            case_dict[site] = {}
+            for suite in suites:
+                case_list = PerfCase.objects.filter(suite__name=suite.name, site__name=site.name)
+                if case_list:
+                    case_dict[site][suite] = case_list
+
+        context['case_dict'] = case_dict
 
         return render_to_response(self.template_name, context, context_instance=RequestContext(request))

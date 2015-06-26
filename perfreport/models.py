@@ -58,10 +58,10 @@ class RunMode(models.Model):
 
 class PerfCase(models.Model):
     LIBRARY_CHOICES = (
-        ('GDSII', 'gds'),
-        ('OASIS', 'oas'),
-        ('OPENACCESS', 'oa'),
-        ('MILKYWAY', 'mw'),
+        ('GDSII', 'GDSII'),
+        ('OASIS', 'OASIS'),
+        ('OPENACCESS', 'OPENACCESS'),
+        ('MILKYWAY', 'MILKYWAY'),
     )
     name = models.CharField(max_length=128, help_text="The name of the case, 128 characters allowed")
     suite = models.ForeignKey(Suite)

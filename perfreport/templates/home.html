@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block title %}
+    | Home
+{% endblock %}
+
+{% block body_content %}
+
+    {% for site, site_dict in case_dict.items %}
+        <div class="ui styled fluid accordion">
+        <div class="title"><i class="dropdown icon"></i>{{ site }} ({{ site_dict.items|length }}) </div>
+        <div class="active content">
+
+        {% for suite, case_list in site_dict.items %}
+            <!--<div class="accordion">-->
+            <div class="title"><i class="dropdown icon"></i>{{ suite.name }} ({{ case_list|length }})</div>
+            <div class="content">
+            <table class="ui celled table">
+            {% for case in case_list %}
+                <tr>
+                <td><a href="cases/{{ case.name }}">{{ case }}</a></td>
+                </tr>
+            {% endfor %}
+            </table>
+            </div>
+            <!--</div>-->
+        {% endfor %}
+        </div>
+        </div>
+    {% endfor %}
+{% endblock %}
+
+{% block body_script %}
+    <script src="{% static 'highcharts/js/highcharts.js' %}"></script>
+    <script src="{% static 'semantic/semantic.min.js'%}"></script>
+    <script type="text/javascript">$('.ui.accordion').accordion({'exclusive':false});</script>
+{% endblock %}
