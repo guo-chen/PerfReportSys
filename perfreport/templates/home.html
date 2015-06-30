@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load staticfiles %}
+{% load perfreport_extras %}
 
 {% block title %}
     | Home
@@ -8,12 +9,14 @@
 {% block body_content %}
 
     {% for site, site_dict in case_dict.items %}
+        <!--
         <div class="ui styled fluid accordion">
         <div class="title"><i class="dropdown icon"></i>{{ site }} ({{ site_dict.items|length }}) </div>
         <div class="active content">
-
+        -->
+        <div class="ui header">{{ site }} ({{ site_num_dict|key:site }})</div>
         {% for suite, case_list in site_dict.items %}
-            <!--<div class="accordion">-->
+            <div class="ui styled fluid accordion">
             <div class="title"><i class="dropdown icon"></i>{{ suite.name }} ({{ case_list|length }})</div>
             <div class="content">
             <table class="ui celled table">
@@ -24,10 +27,12 @@
             {% endfor %}
             </table>
             </div>
-            <!--</div>-->
+            </div>
         {% endfor %}
+        <!--
         </div>
         </div>
+        -->
     {% endfor %}
 {% endblock %}
 

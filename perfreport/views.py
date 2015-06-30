@@ -146,13 +146,19 @@ class HomeView(TemplateView):
         sites = Site.objects.all()
         suites = Suite.objects.all()
         case_dict = {}
+        site_num_dict = {}
         for site in sites:
             case_dict[site] = {}
+            total_case_num = 0
+            site_num_dict[site] = total_case_num
             for suite in suites:
-                case_list = PerfCase.objects.filter(suite__name=suite.name, site__name=site.name)
+                case_list = PerfCase.objects.filter(suite__name=suite.name, site__name=site.name).order_by('name')
                 if case_list:
                     case_dict[site][suite] = case_list
+                    total_case_num += len(case_list)
+                site_num_dict[site] = total_case_num
 
         context['case_dict'] = case_dict
+        context['site_num_dict'] = site_num_dict
 
         return render_to_response(self.template_name, context, context_instance=RequestContext(request))
