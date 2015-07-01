@@ -33,7 +33,7 @@
 
     <div class="column">
         <h4 class="ui horizontal header divider"><i class="file text outline icon"></i>Profile</h4>
-        <table class="ui celled table">
+        <table class="ui selectable celled table">
             <thead>
             <tr>
                 <th>Item</th>
@@ -96,7 +96,7 @@
 
 {% block body_script %}
     <script src="{% static 'highcharts/js/highcharts.js' %}"></script>
-    <script src="{% static 'semantic/semantic.min.js'%}"></script>
+    <script src="{% static 'semantic2/semantic.min.js'%}"></script>
     <script type="text/javascript">$('.ui.accordion').accordion({'exclusive':true});</script>
     <script type="text/javascript">$(document).ready(function(){$('.perf_summary.menu .item').tab({history:false});})</script>
 {% endblock %}
