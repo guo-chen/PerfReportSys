@@ -1,12 +1,8 @@
+{% extends 'base.html' %}
 {% load staticfiles %}
-<!DOCTYPE html>
-<html>
-<head lang="en">
-    <meta charset="UTF-8">
-    <title>{{ case.site.name }} - {{ case.suite.name }} - {{ case.name }}</title>
-    <link href="{% static 'semantic/semantic.css' %}" rel="stylesheet">
-    <script src="{% static 'js_common/jquery.min.js' %}"></script>
-    {% for run_mode, merit_dict in run_results_by_mode.items %}
+
+{% block head_scripts %}
+     {% for run_mode, merit_dict in run_results_by_mode.items %}
         {% for merit, json_data in merit_dict.items %}
             <script type="text/javascript">
             $(function () {
@@ -15,9 +11,9 @@
             </script>
         {% endfor %}
     {% endfor %}
-</head>
-<body>
+{% endblock %}
 
+{% block body_content %}
     <h2 class="ui header">{{ case.name }}</h2>
 
     <div class="ui styled fluid accordion">
@@ -69,10 +65,11 @@
          </div>
     </div>
     {% endfor %}
+{% endblock %}
 
+{% block body_script %}
     <script src="{% static 'highcharts/js/highcharts.js' %}"></script>
-    <script src="{% static 'semantic/semantic.min.js'%}"></script>
+    <script src="{% static 'semantic/semantic.min.js' %}"></script>
     <script type="text/javascript">$('.ui.accordion').accordion({'exclusive':false});</script>
     <script type="text/javascript">$(document).ready(function(){$('.perf_summary.menu .item').tab({history:false});})</script>
-</body>
-</html>
+{% endblock %}

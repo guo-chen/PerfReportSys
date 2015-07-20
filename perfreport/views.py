@@ -17,7 +17,7 @@ unit = {
 
 # Create your views here.
 class CaseView_old(TemplateView):
-    template_name = "case.html"
+    template_name = "perfreport/case.html"
 
     def get_context_data(self, **kwargs):
         context = super(CaseView, self).get_context_data(**kwargs)
@@ -79,7 +79,7 @@ class CaseView_old(TemplateView):
 
 
 class CaseView(TemplateView):
-    template_name = "case.html"
+    template_name = "perfreport/case.html"
 
     def get_context_data(self, **kwargs):
         context = super(CaseView, self).get_context_data(**kwargs)
@@ -134,7 +134,7 @@ class CaseView(TemplateView):
 
 
 class HomeView(TemplateView):
-    template_name = "home.html"
+    template_name = "perfreport/home.html"
 
     def get_context_data(self, **kwargs):
         context = super(HomeView, self).get_context_data(**kwargs)
